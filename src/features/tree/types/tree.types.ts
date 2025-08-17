@@ -25,3 +25,20 @@ export interface TreeNode {
   };
   children: Record<string, { records: TreeNode[] }>;
 }
+
+export interface TreeState {
+  data: TreeNode[];
+  fetchData: () => Promise<void>;
+  removeNode: (id: string) => Promise<void>;
+}
+
+export interface TreeRowsProps {
+  node: TreeNode;
+  level: number;
+  showHeader?: boolean;
+}
+
+export interface TreeHeadersProps {
+  level: number;
+  levelOffset?: number;
+}

@@ -7,3 +7,7 @@ export const fetchTree = async (): Promise<TreeNode[]> => {
   const res = await axios.get<TreeNode[]>(`${API_URL}/tree`);
   return res.data;
 };
+
+export const deleteNode = async (id: string): Promise<void> => {
+  await axios.delete(`${API_URL}/tree/${id}`);
+};

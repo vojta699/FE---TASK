@@ -6,6 +6,7 @@ const TreePage: React.FC = () => {
     <div className="container mt-3">
       <h2>Hierarchy Table</h2>
       <TreeTable />
+      <p>* ⚠️ means duplicity id in database</p>
     </div>
   );
 };

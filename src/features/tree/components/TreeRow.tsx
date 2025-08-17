@@ -1,23 +1,17 @@
 import React, { useState } from "react";
-import type { TreeNode } from "../types/tree.types";
 import RemoveButton from "./RemoveButton";
 import TreeHeader from "./TreeHeader";
-
-interface TreeRowsProps {
-  node: TreeNode;
-  level: number;
-  showHeader?: boolean;
-}
+import type { TreeRowsProps } from "../types/tree.types";
 
 const headersByLevel: Record<number, string[]> = {
-  0: ["ID", "Name", "Gender", "Ability", "Minimal distance", "Weight", "Born", "In space since", "Beer consumption (l/y)", "Knows the answer?", "Delete"],
+  0: ["ID", "Name", "Gender", "Ability", "Minimal distance (km)", "Weight (kg)", "Born", "In space since", "Beer consumption (l/y)", "Knows the answer?", "Delete"],
   1: ["ID", "Character ID", "Is alive?", "Years", "Delete"],
   2: ["ID", "Nemesis ID", "Secrete Code", "Delete"],
 };
 
 const displayValue = (value: unknown): React.ReactNode => {
   if (value === undefined || value === null) {
-    return <span style={{ textAlign: "center", display: "block" }}>-</span>;
+    return <span className="dash">-</span>;
   }
 
   if (value instanceof Date) {
@@ -39,7 +33,7 @@ const displayValue = (value: unknown): React.ReactNode => {
     return value;
   }
 
-  return <span style={{ textAlign: "center", display: "block" }}>-</span>;
+  return <span className="dash">-</span>;
 };
 
 const TreeRows: React.FC<TreeRowsProps> = ({ node, level, showHeader }) => {
@@ -53,7 +47,6 @@ const TreeRows: React.FC<TreeRowsProps> = ({ node, level, showHeader }) => {
 
   return (
     <>
-      {/* Hlavičku ukazujeme jen pokud showHeader je true a level > 0 */}
       {showHeader && level > 0 && <TreeHeader level={level} levelOffset={level} />}
 
       <tr>
@@ -62,14 +55,16 @@ const TreeRows: React.FC<TreeRowsProps> = ({ node, level, showHeader }) => {
         {headers.includes("ID") && (
           <td style={{ cursor: hasChildren ? "pointer" : "auto" }} onClick={handleToggle}>
             {hasChildren ? (expanded ? "▼ " : "▶ ") : null}
-            {displayValue(node.data.id)}
+            {displayValue(
+              node.data.idGenerated ? `⚠️` : node.data.id
+            )}
           </td>
         )}
         {headers.includes("Name") && <td>{displayValue(node.data.name)}</td>}
         {headers.includes("Gender") && <td>{displayValue(node.data.gender)}</td>}
         {headers.includes("Ability") && <td>{displayValue(node.data.ability)}</td>}
-        {headers.includes("Minimal distance") && <td>{displayValue(node.data.minimalDistance)}</td>}
-        {headers.includes("Weight") && <td>{displayValue(node.data.weight)}</td>}
+        {headers.includes("Minimal distance (km)") && <td>{displayValue(node.data.minimalDistance)}</td>}
+        {headers.includes("Weight (kg)") && <td>{displayValue(node.data.weight)}</td>}
         {headers.includes("Born") && <td>{displayValue(node.data.born)}</td>}
         {headers.includes("In space since") && <td>{displayValue(node.data.inSpaceSince)}</td>}
         {headers.includes("Beer consumption (l/y)") && <td>{displayValue(node.data.beerConsumption)}</td>}

@@ -1,12 +1,8 @@
 import React from "react";
-
-interface TreeHeadersProps {
-  level: number;
-  levelOffset?: number;
-}
+import type { TreeHeadersProps } from "../types/tree.types";
 
 const headersByLevel: Record<number, string[]> = {
-  0: ["ID", "Name", "Gender", "Ability", "Minimal distance", "Weight", "Born", "In space since", "Beer consumption (l/y)", "Knows the answer?", "Delete"],
+  0: ["ID", "Name", "Gender", "Ability", "Minimal distance (km)", "Weight (kg)", "Born", "In space since", "Beer consumption (l/y)", "Knows the answer?", "Delete"],
   1: ["ID", "Character ID", "Is alive?", "Years", "Delete"],
   2: ["ID", "Nemesis ID", "Secrete Code", "Delete"],
 };

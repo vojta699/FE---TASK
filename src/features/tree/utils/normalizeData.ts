@@ -108,8 +108,11 @@ export function normalizeData(raw: any[]): TreeNode[] {
     }
 
     return raw.map(item => {
+        const originalId = item.data?.ID;
+        const idGenerated = !originalId || seen.has(originalId);
         const data: TreeNode["data"] = {
-            id: getUniqueId(item.data?.ID),
+            id: getUniqueId(item.data?.ID), 
+            idGenerated,
             name: normalizeName(item.data["Name"]),
             gender: normalizeGender(item.data["Gender"]),
             ability: normalizeAbility(item.data["Ability"]),

@@ -1,24 +1,16 @@
 import { create } from "zustand";
-import axios from "axios";
-import type { TreeNode } from "../types/tree.types";
+import type { TreeState } from "../types/tree.types";
 import { removeNodeById } from "../utils/removeNode";
 import { normalizeData } from "../utils/normalizeData";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
-
-interface TreeState {
-  data: TreeNode[];
-  fetchData: () => Promise<void>;
-  removeNode: (id: string) => Promise<void>;
-}
+import * as treeApi from "../../../api/treeApi";
 
 export const useTreeStore = create<TreeState>((set, get) => ({
   data: [],
 
   fetchData: async () => {
     try {
-      const res = await axios.get(`${API_URL}/tree`);
-      const normalized = normalizeData(res.data);
+      const res = await treeApi.fetchTree();
+      const normalized = normalizeData(res);
       set({ data: normalized });
     } catch (err) {
       console.error("❌ Failed to fetch tree data:", err);
@@ -27,7 +19,7 @@ export const useTreeStore = create<TreeState>((set, get) => ({
 
   removeNode: async (id: string) => {
     try {
-      await axios.delete(`${API_URL}/tree/${id}`);
+      await treeApi.deleteNode(id);
       const newData = removeNodeById(get().data, id);
       set({ data: newData });
     } catch (err) {

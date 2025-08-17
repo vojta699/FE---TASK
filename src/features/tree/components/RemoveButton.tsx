@@ -1,20 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
+import { Button } from "react-bootstrap";
 import { useTreeStore } from "../store/treeStore";
-
-interface RemoveButtonProps {
-  id: string;
-}
+import ConfirmModal from "./ConfirmModal";
+import type { RemoveButtonProps } from "../types/removeButton.types";
 
 const RemoveButton: React.FC<RemoveButtonProps> = ({ id }) => {
+  const [showModal, setShowModal] = useState(false);
   const { removeNode } = useTreeStore();
 
-  const handleClick = async () => {
-    if (window.confirm("Opravdu smazat tento uzel i všechny jeho děti?")) {
-      await removeNode(id);
-    }
+  const handleConfirm = async () => {
+    await removeNode(id);
+    setShowModal(false);
   };
 
-  return <button className="btn btn-danger btn-sm" onClick={handleClick}>Remove</button>;
+  return (
+    <>
+      <Button variant="danger" size="sm" onClick={() => setShowModal(true)}>
+        Remove
+      </Button>
+
+      <ConfirmModal
+        show={showModal}
+        title="Delete Confirmation"
+        body="Are you sure you want to delete this node and all its children?"
+        confirmText="Confirm"
+        cancelText="Cancel"
+        onConfirm={handleConfirm}
+        onCancel={() => setShowModal(false)}
+      />
+    </>
+  );
 };
 
 export default RemoveButton;
