@@ -36,9 +36,11 @@ export interface TreeRowsProps {
   node: TreeNode;
   level: number;
   showHeader?: boolean;
+  headersByLevel: Record<number, string[]>;
 }
 
 export interface TreeHeadersProps {
   level: number;
   levelOffset?: number;
+  headersByLevel: Record<number, string[]>;
 }
