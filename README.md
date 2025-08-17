@@ -74,7 +74,7 @@ project-root/
 │   ├─ features/
 │   │   └─ tree/               # modul Tree
 │   │       ├─ components/     # components for modul
-│   │       │   └─ styles/     # CSS styles for components
+│   │       ├─ styles/         # CSS styles for components
 │   │       ├─ store/          # Zustand store for modul
 │   │       ├─ types/          # types for modul
 │   │       ├─ utils/          # utils for modul
