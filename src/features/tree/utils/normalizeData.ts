@@ -11,9 +11,6 @@ function normalizeValue(value: unknown): unknown {
     if (typeof value === "boolean") return value;
 
     if (typeof value === "string") {
-        const cleaned = value.replace("CET", "+0100").replace("CEST", "+0200");
-        const timestamp = Date.parse(cleaned);
-        if (!isNaN(timestamp)) return new Date(timestamp);
         if (value.trim() === "" || value.toLowerCase() === "null" || value.toLowerCase() === "unknown") return undefined;
         return value;
     }
