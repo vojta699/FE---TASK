@@ -1,38 +1,28 @@
 import React from "react";
+import { Table } from "react-bootstrap";
 import { useTreeStore } from "../store/treeStore";
 import TreeRow from "./TreeRow";
+import TreeHeader from "./TreeHeader";
 import type { TreeNode } from "../types/tree.types";
 
 const TreeTable: React.FC = () => {
   const { data, fetchData } = useTreeStore();
-    console.log(data);
-    
+
   React.useEffect(() => {
     fetchData();
   }, [fetchData]);
 
   return (
-    <table className="table table-striped">
+    <Table striped bordered hover size="sm">
       <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Gender</th>
-          <th>Ability</th>
-          <th>Minimal distance</th>
-          <th>Weight</th>
-          <th>Born</th>
-          <th>In space since</th>
-          <th>Beer consumption (l/y)</th>
-          <th>Delete</th>
-        </tr>
+        <TreeHeader level={0} />
       </thead>
       <tbody>
         {data.map((node: TreeNode) => (
-          <TreeRow key={node.data.id} node={node} level={0} />
+          <TreeRow key={node.data.id} node={node} level={0} showHeader={false} />
         ))}
       </tbody>
-    </table>
+    </Table>
   );
 };
 
