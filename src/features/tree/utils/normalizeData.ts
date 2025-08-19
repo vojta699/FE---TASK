@@ -22,7 +22,8 @@ function normalizeValue(value: unknown): unknown {
 
 function normalizeName(value: unknown): string | undefined {
     const v = normalizeValue(value);
-    return typeof v === "string" ? v : undefined;
+    if (typeof v !== "string") return undefined;
+    return v === "Deep Thought" ? `💻 ${v}` : v;
 }
 
 function normalizeGender(value: string | undefined): string | undefined {

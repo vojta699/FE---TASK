@@ -7,6 +7,7 @@ const TreePage: React.FC = () => {
       <h2>Hierarchy Table</h2>
       <TreeTable />
       <p>* ⚠️ means duplicity id in database</p>
+      <p>* 💻 So… are you looking for someone who knows the answer to life, the universe, and everything, heh? 🙂</p>
     </div>
   );
 };
